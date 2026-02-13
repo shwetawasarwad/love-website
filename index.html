@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Krishu ❤️</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:-apple-system,BlinkMacSystemFont,
+  "SF Pro Display","Helvetica Neue",Arial,sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#ffc0cb,#fff,#000);
+  text-align:center;
+  color:#000;
+  overflow-x:hidden;
+}
+
+section{
+  min-height:100vh;
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+section.active{display:flex;}
+
+h1{color:#ff4d6d;margin-bottom:10px;}
+p{max-width:650px;font-size:1.1rem;margin:10px;}
+
+img{
+  width:85%;
+  max-width:300px;
+  border-radius:20px;
+  margin:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+button{
+  padding:12px 26px;
+  font-size:1.1rem;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  margin:12px;
+}
+
+.next{background:#000;color:#fff;}
+#yes{background:#ff4d6d;color:#fff;}
+#no{background:#fff;color:#000;}
+
+.heartbeat{
+  animation:beat 1.2s infinite;
+}
+
+@keyframes beat{
+  0%{transform:scale(1);}
+  25%{transform:scale(1.1);}
+  50%{transform:scale(1);}
+  75%{transform:scale(1.15);}
+  100%{transform:scale(1);}
+}
+
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.popup-box{
+  background:#fff;
+  padding:25px;
+  border-radius:20px;
+  max-width:330px;
+}
+
+.hearts,.kisses,.sparkles{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+
+.emoji{
+  position:absolute;
+  animation:float 5s linear infinite;
+}
+
+@keyframes float{
+  0%{transform:translateY(100vh);opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<section class="active">
+  <h1>Us 🥹❤️</h1>
+  <img src="img1.jpg">
+  <img src="img2.jpg">
+  <p>Every smile, every kiss, every moment with you feels like home 💕</p>
+  <button class="next" onclick="nextPage()">Next 💕</button>
+</section>
+
+<!-- PAGE 2 -->
+<section>
+  <h1>Opening My Heart 💗</h1>
+  <h1 class="heartbeat">❤️</h1>
+  <p id="typeText"></p>
+  <button class="next" onclick="nextPage()">Next 💕</button>
+</section>
+
+<!-- PAGE 3 -->
+<section>
+  <h1>Love Letter 💌</h1>
+  <p>
+    I may get angry, emotional, dramatic 😅  
+    but you always stay calm and loving.  
+    Thank you for never giving up on us 🥹❤️
+  </p>
+  <button onclick="openLove()">Open Letter 💖</button>
+  <button class="next" onclick="nextPage()">Next 💕</button>
+</section>
+
+<!-- PAGE 4 -->
+<section>
+  <h1>10 Reasons Why I Love You 😍</h1>
+  <button onclick="openReasons()">Tap Here 💕</button>
+  <button class="next" onclick="nextPage()">Next 💕</button>
+</section>
+
+<!-- PAGE 5 -->
+<section>
+  <h1>So… 💍</h1>
+  <h1>Will you stay mine forever?</h1>
+  <button id="yes">YES 😍</button>
+  <button id="no">NO 🙄</button>
+  <button class="next" onclick="nextPage()">Next 💕</button>
+</section>
+
+<!-- PAGE 6 -->
+<section>
+  <h1>For You 🌹</h1>
+  <p>Infinite roses for my forever person 💖</p>
+  <div style="font-size:40px;">
+    🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹<br>
+    🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹<br>
+    🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹
+  </div>
+</section>
+
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <p id="popupText"></p><br>
+    <button onclick="nextPopup()">Next 💕</button>
+  </div>
+</div>
+
+<div class="hearts" id="hearts"></div>
+<div class="kisses" id="kisses"></div>
+<div class="sparkles" id="sparkles"></div>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const pages=document.querySelectorAll("section");
+let page=0;
+function nextPage(){
+  pages[page].classList.remove("active");
+  page++;
+  if(page<pages.length) pages[page].classList.add("active");
+}
+
+const music=document.getElementById("music");
+document.addEventListener("click",()=>{
+  music.volume=0.5;
+  music.play();
+},{once:true});
+
+/* Typing Effect */
+const text="I love you forever, from the bottom of my heart 💖";
+let t=0;
+function typeEffect(){
+  if(t<text.length){
+    document.getElementById("typeText").innerHTML+=text.charAt(t);
+    t++;
+    setTimeout(typeEffect,80);
+  }
+}
+typeEffect();
+
+/* Popups */
+const popup=document.getElementById("popup");
+const popupText=document.getElementById("popupText");
+
+const loveMsgs=[
+"Thank you for loving me even when I’m difficult 🥹❤️",
+"You never leave my side 💕",
+"You are my safe place 🤍"
+];
+
+const reasons=[
+"1. You love me endlessly 💕",
+"2. You respect me 🫶",
+"3. You handle my anger 😅",
+"4. You make me laugh 😂",
+"5. You protect me 💖",
+"6. You support my dreams ✨",
+"7. You listen patiently 🥹",
+"8. You choose me daily ❤️",
+"9. You are my comfort 🤍",
+"10. You are MY forever 💍"
+];
+
+let i=0,mode="love";
+
+function openLove(){
+  mode="love"; i=0;
+  popupText.innerText=loveMsgs[i];
+  popup.style.display="flex";
+}
+
+function openReasons(){
+  mode="reason"; i=0;
+  popupText.innerText=reasons[i];
+  popup.style.display="flex";
+}
+
+function nextPopup(){
+  i++;
+  if(mode==="love" && i<loveMsgs.length) popupText.innerText=loveMsgs[i];
+  else if(mode==="reason" && i<reasons.length) popupText.innerText=reasons[i];
+  else popup.style.display="none";
+}
+
+/* No button */
+const no=document.getElementById("no");
+no.onmouseover=()=>{
+  no.style.position="absolute";
+  no.style.left=Math.random()*80+"vw";
+  no.style.top=Math.random()*80+"vh";
+};
+
+document.getElementById("yes").onclick=()=>{
+  alert("YAYYYY 😍💖 FOREVER IT IS!");
+};
+
+/* Floating effects */
+function floatEmoji(container,emoji,time){
+  setInterval(()=>{
+    const e=document.createElement("div");
+    e.className="emoji";
+    e.innerHTML=emoji;
+    e.style.left=Math.random()*100+"vw";
+    container.appendChild(e);
+    setTimeout(()=>e.remove(),5000);
+  },time);
+}
+
+floatEmoji(hearts,"❤️",300);
+floatEmoji(kisses,"💋",500);
+floatEmoji(sparkles,"✨",700);
+</script>
+
+</body>
+</html>
